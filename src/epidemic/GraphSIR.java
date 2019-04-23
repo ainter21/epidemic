@@ -22,7 +22,7 @@ public class GraphSIR extends Graph {
 
         for (int i = 0; i < size; i++) {
 
-            Node n = new Node(parent, i, parent.width / 2 + 500 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 500 * PApplet.sin(PApplet.TWO_PI / size * i), counter);
+            Node n = new Node(parent, i, parent.width / 2 + 300 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 300 * PApplet.sin(PApplet.TWO_PI / size * i), counter);
 
 //              Node n = new Node(parent, i, parent.random(parent.width), parent.random(parent.height));
             graph.add(n);

@@ -23,7 +23,7 @@ public class Node {
     PApplet parent;
 
     PVector location;
-    int diameter = 25;
+    int diameter = 20;
     ArrayList<Node> neighbors;
     int name;
     public int value = 0;
@@ -45,9 +45,9 @@ public class Node {
         colorEdge = Color.BLACK.getRGB();
         info = new ArrayList<>();
         status = Status.SUSCEPTIBLE;
-        
 
     }
+
     public Node(PApplet parent, int name, float x, float y, int counter) {
 
         this.name = name;
@@ -59,7 +59,6 @@ public class Node {
         info = new ArrayList<>();
         status = Status.SUSCEPTIBLE;
         this.counter = counter;
-        
 
     }
 
@@ -133,57 +132,66 @@ public class Node {
     }
 
     /**
-     * 
+     *
      * @param target nodo destinazione
-     * @param type tipo di messaggio che voglio inviare: PUSH, PULL, PUSH_PULL o REPLY
-     * @param status stato del nodo che invia il messaggio: SUSCEPTIBLE o INFECTED
-     * usato per modello SIR
+     * @param type tipo di messaggio che voglio inviare: PUSH, PULL, PUSH_PULL o
+     * REPLY
+     * @param status stato del nodo che invia il messaggio: SUSCEPTIBLE o
+     * INFECTED usato per modello SIR
      */
     public void sendInfo(Node target, int type, int status) {
 
         if (target != this) {
             Info i = new Info(parent, this, target, type, status);
             info.add(i);
-            if(type != Type.REPLY){
-                Values.infoSent+=1;
+            if (type != Type.REPLY) {
+                Values.infoSent += 1;
             }
         }
     }
+
     /**
-     * 
+     *
      * @param target nodo destinazione
-     * @param type tipo di messaggio che voglio inviare: PUSH, PULL, PUSH_PULL o REPLY
-     * usato per modello SI
+     * @param type tipo di messaggio che voglio inviare: PUSH, PULL, PUSH_PULL o
+     * REPLY usato per modello SI
      */
     public void sendInfo(Node target, int type) {
 
         if (target != this) {
-            Info i = new Info(parent, this, target, type);
-            info.add(i);
-            if(type != Type.REPLY){
-                Values.infoSent+=1;
+            if (neighbors.contains(target)) {
+                Info i = new Info(parent, this, target, type);
+                info.add(i);
+                if (type != Type.REPLY) {
+                    Values.infoSent += 1;
+                }
             }
         }
     }
-    
-    
-    public void resetTimer(){
+
+    public void resetTimer() {
         timer = ROUND_LENGTH;
     }
-    
-    public void setValue(Info i){
+
+    public void setValue(Info i) {
         colorFill = i.colorFill;
         value = i.value;
     }
-    
-    public void setInfected(){
-        
+
+    public void setInfected() {
+
         colorFill = Color.RED.getRGB();
         status = Status.INFECTED;
     }
-    
-    public void setRemoved(){
+
+    public void setRemoved() {
         colorFill = Color.GREEN.getRGB();
         status = Status.REMOVED;
+    }
+    
+    public Node getRandomNeighbor(){
+        
+        int i = (int) parent.random(neighbors.size());
+        return neighbors.get(i);
     }
 }
