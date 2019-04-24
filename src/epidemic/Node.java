@@ -27,6 +27,7 @@ public class Node {
     ArrayList<Node> neighbors;
     int name;
     public int value = 0;
+    public int time = 0;
     int colorFill;
     int colorEdge;
     ArrayList<Info> info;
@@ -128,6 +129,7 @@ public class Node {
 
         value += 1;
         colorFill = parent.color((value * 5 + 147) % 256, (value * 13 + 171) % 256, (value * 17 + 121) % 256);
+        time = parent.millis();
         status = Status.INFECTED;
     }
 
@@ -142,10 +144,12 @@ public class Node {
     public void sendInfo(Node target, int type, int status) {
 
         if (target != this) {
-            Info i = new Info(parent, this, target, type, status);
-            info.add(i);
-            if (type != Type.REPLY) {
-                Values.infoSent += 1;
+            if (neighbors.contains(target)) {
+                Info i = new Info(parent, this, target, type, status);
+                info.add(i);
+                if (type != Type.REPLY) {
+                    Values.infoSent += 1;
+                }
             }
         }
     }
@@ -176,6 +180,7 @@ public class Node {
     public void setValue(Info i) {
         colorFill = i.colorFill;
         value = i.value;
+        time = i.time;
     }
 
     public void setInfected() {
@@ -188,9 +193,9 @@ public class Node {
         colorFill = Color.GREEN.getRGB();
         status = Status.REMOVED;
     }
-    
-    public Node getRandomNeighbor(){
-        
+
+    public Node getRandomNeighbor() {
+
         int i = (int) parent.random(neighbors.size());
         return neighbors.get(i);
     }

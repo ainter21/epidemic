@@ -28,6 +28,7 @@ public class Info {
     public Node target;
     public int type;
     public int status;
+    public int time;
     
     
     public Info(PApplet parent, Node origin, Node target, int type, int status){
@@ -39,7 +40,7 @@ public class Info {
         
         this.type = type;
         this.status = status;
-        
+        this.time = origin.time;
         colorFill = origin.colorFill;
         value = origin.value;
         
@@ -59,6 +60,7 @@ public class Info {
         this.target = target;
         
         this.type = type;
+        this.time = origin.time;
         
         colorFill = origin.colorFill;
         value = origin.value;
