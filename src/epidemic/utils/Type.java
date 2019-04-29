@@ -14,7 +14,7 @@ public class Type {
     
     public static final int PUSH = 0;
     public static final int PULL = 1;
-    public static final int PUSH_PULL = 2;
+    public static final int PUSHPULL = 2;
     
     public static final int REPLY = 3;
 }
