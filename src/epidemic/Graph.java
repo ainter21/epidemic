@@ -88,21 +88,6 @@ abstract class Graph {
         return graph.get(index);
     }
 
-    public Info receivedInfo(Node p) {
-
-        for (Node n : graph) {
-
-            for (int i = 0; i < n.info.size(); i ++) {
-
-                Info info = n.info.get(i);
-                if (info.arrived() && info.target == p) {
-                    n.info.remove(i);
-                    return info;
-                }
-
-            }
-        }
-        return null;
-    }
+   
 
 }

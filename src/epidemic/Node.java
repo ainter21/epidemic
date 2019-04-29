@@ -25,9 +25,9 @@ public class Node {
     PVector location;
     int diameter = 20;
     ArrayList<Node> neighbors;
-    int name;
+    public int name;
     public int value = 0;
-    public int time = 0;
+    public int timestamp = 0;
     int colorFill;
     int colorEdge;
     ArrayList<Info> info;
@@ -129,7 +129,7 @@ public class Node {
 
         value += 1;
         colorFill = parent.color((value * 5 + 147) % 256, (value * 13 + 171) % 256, (value * 17 + 121) % 256);
-        time = parent.millis();
+        timestamp = parent.millis();
         status = Status.INFECTED;
     }
 
@@ -180,7 +180,8 @@ public class Node {
     public void setValue(Info i) {
         colorFill = i.colorFill;
         value = i.value;
-        time = i.time;
+        timestamp = i.timestamp;
+        status = Status.INFECTED;
     }
 
     public void setInfected() {
@@ -198,5 +199,36 @@ public class Node {
 
         int i = (int) parent.random(neighbors.size());
         return neighbors.get(i);
+    }
+    
+    public Info receivedInfo(){
+        
+        for(Node n: neighbors){
+            
+            for(Info i: n.info){
+                
+                if (i.arrived() && i.target == this) {
+                    n.info.remove(i);
+                    return i;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    public boolean hasReceived(){
+        
+        for(Node n: neighbors){
+            
+            for(Info i: n.info){
+                
+                if (i.arrived() && i.target == this) {
+                   return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }
