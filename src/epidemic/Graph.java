@@ -31,8 +31,6 @@ abstract class Graph {
         neighborNumber = size;
         graph = new ArrayList<>();
 
-        
-
     }
 
     public void switchEdges() {
@@ -61,16 +59,8 @@ abstract class Graph {
             for (Info i : n.info) {
                 if (i != null) {
 
-                    if (i.arrived()) {
-                        if (i.value > i.target.value) {
-                            i.target.colorFill = i.colorFill;
-                            i.target.value = i.value;
-//                            i = null;
-                        }
-                    } else {
-                        i.update();
-                        i.display();
-                    }
+                    i.update();
+                    i.display();
                 }
             }
         }
@@ -87,7 +77,5 @@ abstract class Graph {
     public Node getNode(int index) {
         return graph.get(index);
     }
-
-   
 
 }

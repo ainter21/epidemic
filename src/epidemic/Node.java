@@ -208,6 +208,10 @@ public class Node {
             for(Info i: n.info){
                 
                 if (i.arrived() && i.target == this) {
+                    if(status == Status.SUSCEPTIBLE && i.status == Status.INFECTED){
+                        Values.tAverage += parent.millis();
+                        Values.infoArrived += 1.0f;
+                    }
                     n.info.remove(i);
                     return i;
                 }

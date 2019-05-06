@@ -17,6 +17,11 @@ import processing.core.PApplet;
  */
 public class GraphSIR extends Graph {
 
+    int startTime = -1;
+    boolean started = false;
+    boolean finished = false;
+    int endTime;
+    int rounds = 0;
     public GraphSIR(PApplet parent, int size, int counter) {
         super(parent, size);
 
@@ -45,6 +50,9 @@ public class GraphSIR extends Graph {
             if (PApplet.dist(parent.mouseX, parent.mouseY, n.location.x, n.location.y) < n.diameter / 2) {
                 if (n.status == Status.SUSCEPTIBLE) {
                     n.setInfected();
+                    if(!started){
+                        startTime = parent.millis();
+                    }
                     break;
                 }
             }
@@ -66,6 +74,7 @@ public class GraphSIR extends Graph {
         drawInfo();
 
         int susceptible = 0;
+        int infected = 0;
 
         for (int i = 0; i < size; i++) {
 
@@ -73,13 +82,38 @@ public class GraphSIR extends Graph {
             if (n.status == Status.SUSCEPTIBLE) {
                 susceptible += 1;
             }
+            else if(n.status == Status.INFECTED){
+                infected++;
+            }
+            
+            
         }
         
+        for(Node n : graph){
+            
+            if(startTime != -1){
+                
+                if(n.timer==0){
+                    rounds++;
+                    break;
+                }
+            }
+        }
         
         
         parent.fill(Color.BLACK.getRGB());
         parent.text("S: " + susceptible, parent.width / 2, parent.height / 2);
         parent.text("Average traffic: " + Values.infoSent/(float) size, parent.width/2, parent.height/2 + 20);
+        if(Values.infoArrived != 0.0f){
+            parent.text("Average time: " + (Values.tAverage - startTime * Values.infoArrived)/(Values.infoArrived*1000.0f), parent.width/2, parent.height/2 + 40);
+        }
+        if((susceptible == 0 || (infected==0 && startTime!=-1))&& !finished){
+            finished = true;
+            endTime = parent.millis() - startTime; 
+        }
+        if(finished || (infected == 0 && startTime != -1)){
+            parent.text("Last time: "+  endTime/1000.0f,parent.width/2, parent.height/2 + 60);
+        }
     }
 
 }

@@ -12,4 +12,7 @@ package epidemic.utils;
 public class Values {
     
     public static float infoSent = 0.0f;
+    public static float infoArrived = 0.0f;
+    public static float tAverage = 0.0f;
+    
 }
