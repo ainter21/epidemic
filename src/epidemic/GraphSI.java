@@ -6,6 +6,7 @@
 package epidemic;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 /**
  *
@@ -19,7 +20,7 @@ public class GraphSI extends Graph{
         for (int i = 0; i < size; i++) {
 
             Node n = new Node(parent, i, parent.width / 2 + 300 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 300 * PApplet.sin(PApplet.TWO_PI / size * i));
-
+            n.locationInfo = new PVector(parent.width / 2 + 360 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 360 * PApplet.sin(PApplet.TWO_PI / size * i));
 //              Node n = new Node(parent, i, parent.random(parent.width), parent.random(parent.height));
             graph.add(n);
         }

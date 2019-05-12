@@ -8,6 +8,7 @@ package epidemic;
 import epidemic.utils.Status;
 import epidemic.utils.Type;
 import epidemic.utils.Values;
+import epidemic.utils.Visual;
 import java.awt.Color;
 import java.util.ArrayList;
 import processing.core.PApplet;
@@ -23,6 +24,7 @@ public class Node {
     PApplet parent;
 
     PVector location;
+    PVector locationInfo;
     int diameter = 20;
     ArrayList<Node> neighbors;
     public int name;
@@ -31,7 +33,7 @@ public class Node {
     int colorEdge;
     ArrayList<Info> info;
     public int status;
-    public int counter;
+    public int counter = -1;
 
     public int timer = ROUND_LENGTH;
 
@@ -83,6 +85,20 @@ public class Node {
         parent.stroke(Color.BLACK.getRGB());
 
         parent.ellipse(location.x, location.y, diameter, diameter);
+        
+        if(Visual.nodeInfo){
+            
+            parent.fill(0);
+            parent.textAlign(parent.CENTER, parent.CENTER);
+            parent.textSize(11);
+            parent.text("ts: " + timestamp, locationInfo.x, locationInfo.y - 15);
+            parent.text("timer: " + timer, locationInfo.x, locationInfo.y + 15);
+            if(counter != -1){
+                
+                parent.text("counter: " + counter, locationInfo.x, locationInfo.y);
+            }
+            
+        }
 
 //        parent.fill(Color.BLACK.getRGB());
 //        parent.textAlign(PApplet.CENTER, PApplet.CENTER);
@@ -152,10 +168,8 @@ public class Node {
      * @param target nodo destinazione
      * @param type tipo di messaggio che voglio inviare: PUSH, PULL, PUSH_PULL o
      * REPLY
-     * @param status stato del nodo che invia il messaggio: SUSCEPTIBLE o
-     * INFECTED usato per modello SIR
      */
-    public void sendInfo(Node target, int type, int status) {
+    public void sendInfo(Node target, int type) {
 
         if (target != this) {
             if (neighbors.contains(target)) {
@@ -168,24 +182,6 @@ public class Node {
         }
     }
 
-    /**
-     *
-     * @param target nodo destinazione
-     * @param type tipo di messaggio che voglio inviare: PUSH, PULL, PUSH_PULL o
-     * REPLY usato per modello SI
-     */
-    public void sendInfo(Node target, int type) {
-
-        if (target != this) {
-            if (neighbors.contains(target)) {
-                Info i = new Info(parent, this, target, type);
-                info.add(i);
-                if (type != Type.REPLY) {
-                    Values.infoSent += 1;
-                }
-            }
-        }
-    }
 
     public void resetTimer() {
         timer = ROUND_LENGTH;
