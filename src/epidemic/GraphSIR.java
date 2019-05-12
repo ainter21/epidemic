@@ -100,7 +100,7 @@ public class GraphSIR extends Graph {
             }
         }
         
-        
+        parent.textAlign(parent.CENTER,parent.CENTER);
         parent.fill(Color.BLACK.getRGB());
         parent.text("S: " + susceptible, parent.width / 2, parent.height / 2);
         parent.text("Average traffic: " + Values.infoSent/(float) size, parent.width/2, parent.height/2 + 20);

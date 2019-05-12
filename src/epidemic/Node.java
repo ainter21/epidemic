@@ -26,9 +26,8 @@ public class Node {
     int diameter = 20;
     ArrayList<Node> neighbors;
     public int name;
-    public int value = 0;
+    public int value;
     public int timestamp = 0;
-    int colorFill;
     int colorEdge;
     ArrayList<Info> info;
     public int status;
@@ -36,44 +35,59 @@ public class Node {
 
     public int timer = ROUND_LENGTH;
 
+    /**
+     * Node used in SI
+     * @param parent
+     * @param name
+     * @param x
+     * @param y 
+     */
     public Node(PApplet parent, int name, float x, float y) {
 
         this.name = name;
         this.parent = parent;
         location = new PVector(x, y);
         neighbors = new ArrayList<>();
-        colorFill = Color.WHITE.getRGB();
         colorEdge = Color.BLACK.getRGB();
         info = new ArrayList<>();
         status = Status.SUSCEPTIBLE;
+        value = Color.WHITE.getRGB();
 
     }
 
+    /**
+     * Node used in SIR
+     * @param parent
+     * @param name
+     * @param x
+     * @param y
+     * @param counter 
+     */
     public Node(PApplet parent, int name, float x, float y, int counter) {
 
         this.name = name;
         this.parent = parent;
         location = new PVector(x, y);
         neighbors = new ArrayList<>();
-        colorFill = Color.WHITE.getRGB();
         colorEdge = Color.BLACK.getRGB();
         info = new ArrayList<>();
         status = Status.SUSCEPTIBLE;
         this.counter = counter;
+        value = Color.WHITE.getRGB();
 
     }
 
     public void drawNode() {
 
-        parent.fill(colorFill);
+        parent.fill(value);
         parent.stroke(Color.BLACK.getRGB());
 
         parent.ellipse(location.x, location.y, diameter, diameter);
 
-        parent.fill(Color.BLACK.getRGB());
-        parent.textAlign(PApplet.CENTER, PApplet.CENTER);
-
-        parent.text(value, location.x, location.y);
+//        parent.fill(Color.BLACK.getRGB());
+//        parent.textAlign(PApplet.CENTER, PApplet.CENTER);
+//
+//        parent.text(value, location.x, location.y);
 
     }
 
@@ -120,15 +134,15 @@ public class Node {
     }
 
     void resetNode() {
-        colorFill = Color.WHITE.getRGB();
+        
         colorEdge = Color.BLACK.getRGB();
-        value = 0;
+        value = Color.WHITE.getRGB();
     }
 
     public void updateValue() {
 
-        value += 1;
-        colorFill = parent.color((value * 5 + 147) % 256, (value * 13 + 171) % 256, (value * 17 + 121) % 256);
+        
+        value = parent.color(parent.random(256), parent.random(256), parent.random(256));
         timestamp = parent.millis();
         status = Status.INFECTED;
     }
@@ -178,7 +192,6 @@ public class Node {
     }
 
     public void setValue(Info i) {
-        colorFill = i.colorFill;
         value = i.value;
         timestamp = i.timestamp;
         status = Status.INFECTED;
@@ -186,12 +199,12 @@ public class Node {
 
     public void setInfected() {
 
-        colorFill = Color.RED.getRGB();
+        value = Color.RED.getRGB();
         status = Status.INFECTED;
     }
 
     public void setRemoved() {
-        colorFill = Color.GREEN.getRGB();
+        value = Color.GREEN.getRGB();
         status = Status.REMOVED;
     }
 

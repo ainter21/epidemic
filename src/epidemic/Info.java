@@ -20,7 +20,6 @@ public class Info {
     PVector location;
     PVector velocity;
     
-    int colorFill;
     public int value;
     final int SPEED = 5;
     final int DIAMETER = 10;
@@ -41,7 +40,6 @@ public class Info {
         this.type = type;
         this.status = status;
         this.timestamp = origin.timestamp;
-        colorFill = origin.colorFill;
         value = origin.value;
         
         
@@ -62,7 +60,6 @@ public class Info {
         this.type = type;
         this.timestamp = origin.timestamp;
         
-        colorFill = origin.colorFill;
         value = origin.value;
         
         
@@ -82,7 +79,7 @@ public class Info {
     
     public void display(){
         parent.stroke(Color.BLACK.getRGB());
-        parent.fill(colorFill);
+        parent.fill(value);
         parent.ellipse(location.x,location.y,DIAMETER,DIAMETER);
         
         
