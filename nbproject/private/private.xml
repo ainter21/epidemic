@@ -5,10 +5,13 @@
         <group>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/Node.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/utils/Type.java</file>
+            <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/GraphAggregation.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/GraphLattice.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/GraphSIR.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/Graph.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/utils/Values.java</file>
+            <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/utils/Visual.java</file>
+            <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/NodeAggregation.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/GraphSI.java</file>
             <file>file:/E:/Documents/NetBeansProjects/epidemic/src/epidemic/Info.java</file>
         </group>

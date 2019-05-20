@@ -14,5 +14,6 @@ public class Visual {
     
     public static boolean infoType = false;
     public static boolean nodeInfo = false;
+    public static int speed = 9;
     
 }

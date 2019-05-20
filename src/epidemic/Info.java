@@ -20,8 +20,8 @@ public class Info {
     PVector location;
     PVector velocity;
 
-    public int value;
-    final int SPEED = 5;
+    public float value;
+    int SPEED;
     final int DIAMETER = 10;
     public Node origin;
     public Node target;
@@ -40,6 +40,14 @@ public class Info {
         this.status = status;
         this.timestamp = origin.timestamp;
         value = origin.value;
+        
+        
+        if(Visual.speed < 40){
+            SPEED = (int) (Visual.speed * 5.0/9.0);
+        }else{
+            SPEED = 40;
+        }
+        System.out.println(SPEED);
 
         location = origin.location.copy();
 

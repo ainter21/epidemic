@@ -51,7 +51,7 @@ abstract class Graph {
             n.drawNode();
         });
         
-        int mostRecentValue = Color.WHITE.getRGB();
+        float mostRecentValue = Color.WHITE.getRGB();
         int mostRecentTimestamp = 0;
         for(Node n: graph){
            if(n.timestamp> mostRecentTimestamp){

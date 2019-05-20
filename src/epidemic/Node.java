@@ -20,7 +20,7 @@ import processing.core.PVector;
  */
 public class Node {
 
-    final int ROUND_LENGTH = 900;
+    final int ROUND_LENGTH =(int) (8100.0/Visual.speed);
     PApplet parent;
 
     PVector location;
@@ -28,14 +28,14 @@ public class Node {
     int diameter = 20;
     ArrayList<Node> neighbors;
     public int name;
-    public int value;
+    public float value;
     public int timestamp = 0;
     int colorEdge;
     ArrayList<Info> info;
     public int status;
     public int counter = -1;
 
-    public int timer = ROUND_LENGTH;
+    public int timer;
 
     /**
      * Node used in SI
@@ -54,6 +54,7 @@ public class Node {
         info = new ArrayList<>();
         status = Status.SUSCEPTIBLE;
         value = Color.WHITE.getRGB();
+        timer = ROUND_LENGTH;
 
     }
 
@@ -76,6 +77,7 @@ public class Node {
         status = Status.SUSCEPTIBLE;
         this.counter = counter;
         value = Color.WHITE.getRGB();
+        timer = ROUND_LENGTH;
 
     }
 
@@ -100,10 +102,6 @@ public class Node {
             
         }
 
-//        parent.fill(Color.BLACK.getRGB());
-//        parent.textAlign(PApplet.CENTER, PApplet.CENTER);
-//
-//        parent.text(value, location.x, location.y);
 
     }
 
