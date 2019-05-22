@@ -23,13 +23,14 @@ public class GraphSIR extends Graph {
     boolean finished = false;
     int endTime;
     int rounds = 0;
+
     public GraphSIR(PApplet parent, int size, int counter) {
         super(parent, size);
 
         for (int i = 0; i < size; i++) {
 
             Node n = new Node(parent, i, parent.width / 2 + 300 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 300 * PApplet.sin(PApplet.TWO_PI / size * i), counter);
-             n.locationInfo = new PVector(parent.width / 2 + 360 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 360 * PApplet.sin(PApplet.TWO_PI / size * i));
+            n.locationInfo = new PVector(parent.width / 2 + 440 * PApplet.cos(PApplet.TWO_PI / size * i), parent.height / 2 + 440 * PApplet.sin(PApplet.TWO_PI / size * i));
 //              Node n = new Node(parent, i, parent.random(parent.width), parent.random(parent.height));
             graph.add(n);
         }
@@ -41,7 +42,6 @@ public class GraphSIR extends Graph {
                 n.addNeighbor(graph.get(i));
             }
         }
-        System.out.println("creato grafo");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class GraphSIR extends Graph {
             if (PApplet.dist(parent.mouseX, parent.mouseY, n.location.x, n.location.y) < n.diameter / 2) {
                 if (n.status == Status.SUSCEPTIBLE) {
                     n.setInfected();
-                    if(!started){
+                    if (!started) {
                         startTime = parent.millis();
                     }
                     break;
@@ -82,38 +82,36 @@ public class GraphSIR extends Graph {
             Node n = graph.get(i);
             if (n.status == Status.SUSCEPTIBLE) {
                 susceptible += 1;
-            }
-            else if(n.status == Status.INFECTED){
+            } else if (n.status == Status.INFECTED) {
                 infected++;
             }
-            
-            
+
         }
-        
-        for(Node n : graph){
-            
-            if(startTime != -1){
-                
-                if(n.timer==0){
+
+        for (Node n : graph) {
+
+            if (startTime != -1) {
+
+                if (n.timer == 0) {
                     rounds++;
                     break;
                 }
             }
         }
-        
-        parent.textAlign(parent.CENTER,parent.CENTER);
+
+        parent.textAlign(parent.CENTER, parent.CENTER);
         parent.fill(Color.BLACK.getRGB());
         parent.text("S: " + susceptible, parent.width / 2, parent.height / 2);
-        parent.text("Average traffic: " + Values.infoSent/(float) size, parent.width/2, parent.height/2 + 20);
-        if(Values.infoArrived != 0.0f){
-            parent.text("Average time: " + (Values.tAverage - startTime * Values.infoArrived)/(Values.infoArrived*1000.0f), parent.width/2, parent.height/2 + 40);
+        parent.text("Average traffic: " + Values.infoSent / (float) size, parent.width / 2, parent.height / 2 + 20);
+        if (Values.infoArrived != 0.0f) {
+            parent.text("Average time: " + (Values.tAverage - startTime * Values.infoArrived) / (Values.infoArrived * 1000.0f), parent.width / 2, parent.height / 2 + 40);
         }
-        if((susceptible == 0 || (infected==0 && startTime!=-1))&& !finished){
+        if ((susceptible == 0 || (infected == 0 && startTime != -1)) && !finished) {
             finished = true;
-            endTime = parent.millis() - startTime; 
+            endTime = parent.millis() - startTime;
         }
-        if(finished || (infected == 0 && startTime != -1)){
-            parent.text("Last time: "+  endTime/1000.0f,parent.width/2, parent.height/2 + 60);
+        if (finished || (infected == 0 && startTime != -1)) {
+            parent.text("Last time: " + endTime / 1000.0f, parent.width / 2, parent.height / 2 + 60);
         }
     }
 

@@ -28,6 +28,7 @@ public class Info {
     public int type;
     public int status;
     public int timestamp;
+    boolean isAggregation = false;
 
     public Info(PApplet parent, Node origin, Node target, int type, int status) {
 
@@ -40,14 +41,8 @@ public class Info {
         this.status = status;
         this.timestamp = origin.timestamp;
         value = origin.value;
-        
-        
-        if(Visual.speed < 40){
-            SPEED = (int) (Visual.speed * 5.0/9.0);
-        }else{
-            SPEED = 40;
-        }
-        System.out.println(SPEED);
+
+        SPEED = (int) (Visual.speed * 7.0 / 9.0);
 
         location = origin.location.copy();
 
@@ -62,7 +57,12 @@ public class Info {
 
     public void display() {
         parent.stroke(Color.BLACK.getRGB());
-        parent.fill(value);
+        if (isAggregation) {
+            parent.fill(Color.WHITE.getRGB());
+        } else {
+            parent.fill((int) value);
+        }
+
         parent.ellipse(location.x, location.y, DIAMETER, DIAMETER);
         parent.fill(0);
         parent.textSize(11);
@@ -84,6 +84,14 @@ public class Info {
                     break;
                 default:
                     break;
+            }
+
+            if (isAggregation) {
+
+                parent.fill(0);
+                parent.textSize(8);
+                parent.text(value, location.x, location.y + 15);
+
             }
         }
 

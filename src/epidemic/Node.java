@@ -20,9 +20,9 @@ import processing.core.PVector;
  */
 public class Node {
 
-    final int ROUND_LENGTH =(int) (8100.0/Visual.speed);
-    PApplet parent;
+    int ROUND_LENGTH = (int) (3600.0 / Visual.speed);
 
+    PApplet parent;
     PVector location;
     PVector locationInfo;
     int diameter = 20;
@@ -39,10 +39,11 @@ public class Node {
 
     /**
      * Node used in SI
+     *
      * @param parent
      * @param name
      * @param x
-     * @param y 
+     * @param y
      */
     public Node(PApplet parent, int name, float x, float y) {
 
@@ -54,17 +55,19 @@ public class Node {
         info = new ArrayList<>();
         status = Status.SUSCEPTIBLE;
         value = Color.WHITE.getRGB();
+
         timer = ROUND_LENGTH;
 
     }
 
     /**
      * Node used in SIR
+     *
      * @param parent
      * @param name
      * @param x
      * @param y
-     * @param counter 
+     * @param counter
      */
     public Node(PApplet parent, int name, float x, float y, int counter) {
 
@@ -83,25 +86,24 @@ public class Node {
 
     public void drawNode() {
 
-        parent.fill(value);
+        parent.fill((int) value);
         parent.stroke(Color.BLACK.getRGB());
 
         parent.ellipse(location.x, location.y, diameter, diameter);
-        
-        if(Visual.nodeInfo){
-            
+
+        if (Visual.nodeInfo) {
+
             parent.fill(0);
             parent.textAlign(parent.CENTER, parent.CENTER);
             parent.textSize(11);
             parent.text("ts: " + timestamp, locationInfo.x, locationInfo.y - 15);
             parent.text("timer: " + timer, locationInfo.x, locationInfo.y + 15);
-            if(counter != -1){
-                
+            if (counter != -1) {
+
                 parent.text("counter: " + counter, locationInfo.x, locationInfo.y);
             }
-            
-        }
 
+        }
 
     }
 
@@ -148,14 +150,13 @@ public class Node {
     }
 
     void resetNode() {
-        
+
         colorEdge = Color.BLACK.getRGB();
         value = Color.WHITE.getRGB();
     }
 
     public void updateValue() {
 
-        
         value = parent.color(parent.random(256), parent.random(256), parent.random(256));
         timestamp = parent.millis();
         status = Status.INFECTED;
@@ -179,7 +180,6 @@ public class Node {
             }
         }
     }
-
 
     public void resetTimer() {
         timer = ROUND_LENGTH;
@@ -207,15 +207,15 @@ public class Node {
         int i = (int) parent.random(neighbors.size());
         return neighbors.get(i);
     }
-    
-    public Info receivedInfo(){
-        
-        for(Node n: neighbors){
-            
-            for(Info i: n.info){
-                
+
+    public Info receivedInfo() {
+
+        for (Node n : neighbors) {
+
+            for (Info i : n.info) {
+
                 if (i.arrived() && i.target == this) {
-                    if(status == Status.SUSCEPTIBLE && i.status == Status.INFECTED){
+                    if (status == Status.SUSCEPTIBLE && i.status == Status.INFECTED) {
                         Values.tAverage += parent.millis();
                         Values.infoArrived += 1.0f;
                     }
@@ -224,22 +224,22 @@ public class Node {
                 }
             }
         }
-        
+
         return null;
     }
-    
-    public boolean hasReceived(){
-        
-        for(Node n: neighbors){
-            
-            for(Info i: n.info){
-                
+
+    public boolean hasReceived() {
+
+        for (Node n : neighbors) {
+
+            for (Info i : n.info) {
+
                 if (i.arrived() && i.target == this) {
-                   return true;
+                    return true;
                 }
             }
         }
-        
+
         return false;
     }
 }
